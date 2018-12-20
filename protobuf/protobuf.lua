@@ -590,7 +590,7 @@ end
 
 local function _AddSetListenerMethod(message_meta)
     message_meta._member._SetListener = function(self, listener)
-        if listener ~= nil then
+        if listener == nil then
             self._listener = listener_mod.NullMessageListener()
         else
             self._listener = listener
