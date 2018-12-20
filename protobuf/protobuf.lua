@@ -503,6 +503,7 @@ local function _AddListFieldsMethod(message_descriptor, message_meta)
             local iter = function(a, i)
                 while true do
                     local descriptor, value = f(a, i)
+                    i = descriptor
                     if descriptor == nil then
                         return 
                     elseif _IsPresent(descriptor, value) then
