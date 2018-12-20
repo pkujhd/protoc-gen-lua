@@ -26,14 +26,17 @@ WIRETYPE_END_GROUP = 4
 WIRETYPE_FIXED32 = 5
 _WIRETYPE_MAX = 5
 
-
--- yeah, we don't need uint64
 local function _VarUInt64ByteSizeNoTag(uint64)
-    if uint64 <= 0x7f then return 1 end
-    if uint64 <= 0x3fff then return 2 end
-    if uint64 <= 0x1fffff then return 3 end
-    if uint64 <= 0xfffffff then return 4 end
-    return 5
+  if uint64 <= 0x7f then return 1 end
+  if uint64 <= 0x3fff then return 2 end
+  if uint64 <= 0x1fffff then return 3 end
+  if uint64 <= 0xfffffff then return 4 end
+  if uint64 <= 0x7ffffffff then return 5 end
+  if uint64 <= 0x3ffffffffff then return 6 end
+  if uint64 <= 0x1ffffffffffff then return 7 end
+  if uint64 <= 0xffffffffffffff then return 8 end
+  if uint64 <= 0x7fffffffffffffff then return 9 end
+  return 10
 end
 
 function PackTag(field_number, wire_type)
@@ -134,4 +137,3 @@ end
 function TagByteSize(field_number)
     return _VarUInt64ByteSizeNoTag(PackTag(field_number, 0))
 end
-
