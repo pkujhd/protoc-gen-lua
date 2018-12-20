@@ -321,7 +321,7 @@ def code_gen_field(index, field_desc, env):
     if field_desc.HasField('type_name'):
         type_name = env.get_ref_name(field_desc.type_name)
         try:
-            pos = type_name.index('_pb.') + 4
+            pos = type_name.index('_pb.') + len('_pb.')
         except:
             pos = 0
         type_name = type_name[:pos] + type_name[pos:].upper().replace('.', '_')
