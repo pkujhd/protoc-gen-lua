@@ -63,8 +63,8 @@ function Uint32ValueChecker(IntValueChecker)
 end
 
 function Int64ValueChecker()
-    local _MIN = -4503599627370496 -- -pow(2, 52)
-    local _MAX = 4503599627370495  -- pow(2, 52)-1
+    local _MIN = -0x10000000000000   -- -pow(2, 52)
+    local _MAX = 0xFFFFFFFFFFFFF    -- pow(2, 52)-1
     return function(proposed_value)
         if type(proposed_value) ~= 'number' then
             error(string.format('%s has type %s, but expected one of: number',
@@ -78,7 +78,7 @@ end
 
 function Uint64ValueChecker(IntValueChecker)
     local _MIN = 0
-    local _MAX = 4503599627370495 --pow(2, 52)-1
+    local _MAX = 0xFFFFFFFFFFFFF --pow(2, 52)-1
     return function(proposed_value)
         if type(proposed_value) ~= 'number' then
             error(string.format('%s has type %s, but expected one of: number',
