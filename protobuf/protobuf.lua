@@ -793,11 +793,19 @@ local function _AddMergeFromMethod(message_meta)
         local fields = self._fields
 
         for field, value in pairs(msg._fields) do
-            if field.label == LABEL_REPEATED or field.cpp_type == CPPTYPE_MESSAGE then
-                field_value = fields[field]
+            if field.label == LABEL_REPEATED then
+                local field_value = fields[field]
                 if field_value == nil then
                     field_value = field._default_constructor(self)
                     fields[field] = field_value
+                end
+                for k, v in ipairs(value) do
+                    local sub_value = field_value:add()
+                    sub_value:MergeFrom(v)
+                end 
+            elseif field.cpp_type == CPPTYPE_MESSAGE then
+                if fields[field] == nil then
+                    fields[field] = field._default_constructor(self)
                 end
                 field_value:MergeFrom(value)
             else
