@@ -53,7 +53,7 @@ function RepeatedCompositeFieldContainer(listener, message_descriptor)
 end
 
 local _RSFC_meta = {
-    append = function(self, value)
+    add = function(self, value)
         self._type_checker(value)
         rawset(self, #self + 1, value)
         self._listener:Modified()
