@@ -43,7 +43,7 @@ Then you compile it.
 Then,  make sure that protobuf/ in package.cpath and package.path,  you use that code like this:
 
 ```
-require "person_pb"
+local person_pb = require "person_pb"
 
 -- Serialize Example
 local msg = person_pb.Person()
