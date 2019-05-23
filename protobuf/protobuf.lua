@@ -800,8 +800,12 @@ local function _AddMergeFromMethod(message_meta)
                     fields[field] = field_value
                 end
                 for k, v in ipairs(value) do
-                    local sub_value = field_value:add()
-                    sub_value:MergeFrom(v)
+                    if field.cpp_type == CPPTYPE_MESSAGE then
+                        local sub_value = field_value:add()
+                        sub_value:MergeFrom(v)
+                    else
+                        field_value:append(v)
+                    end
                 end 
             elseif field.cpp_type == CPPTYPE_MESSAGE then
                 if fields[field] == nil then
